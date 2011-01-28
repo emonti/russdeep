@@ -1,6 +1,11 @@
+begin
+require 'rubygems'
+rescue LoadError
+end
 
 require 'ffi'
 
+module FFI
 module Ssdeep
   class HashError < StandardError
   end
@@ -15,7 +20,7 @@ module Ssdeep
   typedef :pointer, :fuzzy_hash
 
   attach_function :fuzzy_hash_buf, [:pointer, :uint32, :fuzzy_hash], :int
-  attach_function :fuzzy_hash_filen, [:pointer, :fuzzy_hash], :int
+  attach_function :fuzzy_hash_file, [:pointer, :fuzzy_hash], :int
   attach_function :fuzzy_hash_filename, [:string, :fuzzy_hash], :int
   attach_function :fuzzy_compare, [:fuzzy_hash, :fuzzy_hash], :int
 
@@ -50,7 +55,7 @@ module Ssdeep
   end
 
   def self.from_file(filename)
-    File.stat("/etc/foo")
+    File.stat(filename)
     out = FFI::MemoryPointer.new(FUZZY_MAX_RESULT)
 
     if (ret=fuzzy_hash_filename(filename, out)) == 0
@@ -66,4 +71,5 @@ module Ssdeep
 
     return fuzzy_compare(psig1, psig2)
   end
+end
 end
