@@ -1,0 +1,2 @@
+require 'ffi/ssdeep'
+
