@@ -25,6 +25,7 @@ Rake::ExtensionTask.new("fuzzyhash_native")
 
 CLEAN.include("lib/*.bundle")
 CLEAN.include("lib/*.so")
+CLEAN.include("tmp")
 
 require 'spec/rake/spectask'
 Spec::Rake::SpecTask.new(:spec) do |spec|
