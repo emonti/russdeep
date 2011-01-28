@@ -1,0 +1,3 @@
+require 'ssdeep'
+
+RuSsdeep = Ssdeep
