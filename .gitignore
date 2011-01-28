@@ -19,3 +19,9 @@ rdoc
 pkg
 
 ## PROJECT::SPECIFIC
+#
+tmp
+ref
+*.bundle
+*.so
+*.o
