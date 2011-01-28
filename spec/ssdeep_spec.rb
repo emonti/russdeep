@@ -33,8 +33,8 @@ describe Ssdeep do
 
   it "should compare two hashes from the same string correctly" do
     Ssdeep.compare(
-      Ssdeep.from_filename(@f1),
-      Ssdeep.from_filename(@f1)
+      Ssdeep.from_file(@f1),
+      Ssdeep.from_file(@f1)
     ).should == 100
   end
 
@@ -54,8 +54,8 @@ describe Ssdeep do
 
   it "should compare two hashes from different filenames correctly" do
     Ssdeep.compare(
-      Ssdeep.from_filename(@f1),
-      Ssdeep.from_filename(@f2)
+      Ssdeep.from_file(@f1),
+      Ssdeep.from_file(@f2)
     ).should > 50
   end
 
