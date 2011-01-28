@@ -2,10 +2,10 @@
 #include <fuzzy.h>
 #include <stdio.h>
 
-static VALUE module_FuzzyHash = Qnil;
+static VALUE module_Ssdeep = Qnil;
 static VALUE error_HashError = Qnil;
 
-VALUE fuzzyhash_from_string(VALUE klass, VALUE buf) {
+VALUE ssdeep_from_string(VALUE klass, VALUE buf) {
   char hash[FUZZY_MAX_RESULT];
   int ret;
   Check_Type(buf, T_STRING);
@@ -17,7 +17,7 @@ VALUE fuzzyhash_from_string(VALUE klass, VALUE buf) {
     rb_raise(error_HashError, "An error occurred hashing a string: ret=%i", ret);
 }
 
-VALUE fuzzyhash_from_filename(VALUE klass, VALUE filename) {
+VALUE ssdeep_from_filename(VALUE klass, VALUE filename) {
   char hash[FUZZY_MAX_RESULT];
   int ret;
   Check_Type(filename, T_STRING);
@@ -29,7 +29,7 @@ VALUE fuzzyhash_from_filename(VALUE klass, VALUE filename) {
     rb_raise(error_HashError, "An error occurred the file: %s -- ret=%i", RSTRING_PTR(filename), ret);
 }
 
-VALUE fuzzyhash_from_fileno(VALUE klass, VALUE fileno) {
+VALUE ssdeep_from_fileno(VALUE klass, VALUE fileno) {
   char hash[FUZZY_MAX_RESULT];
   int ret, fd;
   FILE *file;
@@ -50,7 +50,7 @@ VALUE fuzzyhash_from_fileno(VALUE klass, VALUE fileno) {
     rb_raise(error_HashError, "An error occurred the fileno: %i -- ret=%i", fd, ret);
 }
 
-VALUE fuzzyhash_compare(VALUE klass, VALUE sig1, VALUE sig2) {
+VALUE ssdeep_compare(VALUE klass, VALUE sig1, VALUE sig2) {
   int ret;
 
   Check_Type(sig1, T_STRING);
@@ -64,17 +64,17 @@ VALUE fuzzyhash_compare(VALUE klass, VALUE sig1, VALUE sig2) {
     return INT2NUM(ret);
 }
 
-void Init_fuzzyhash_native() {
-  module_FuzzyHash = rb_define_module("FuzzyHash");
+void Init_ssdeep_native() {
+  module_Ssdeep = rb_define_module("Ssdeep");
 
-  error_HashError = rb_define_class_under(module_FuzzyHash, "HashError", rb_eStandardError);
+  error_HashError = rb_define_class_under(module_Ssdeep, "HashError", rb_eStandardError);
 
-  rb_define_singleton_method(module_FuzzyHash, "from_string", fuzzyhash_from_string, 1);
-  rb_define_singleton_method(module_FuzzyHash, "from_file", fuzzyhash_from_filename, 1);
-  rb_define_singleton_method(module_FuzzyHash, "from_fileno", fuzzyhash_from_fileno, 1);
-  rb_define_singleton_method(module_FuzzyHash, "compare", fuzzyhash_compare, 2);
+  rb_define_singleton_method(module_Ssdeep, "from_string", ssdeep_from_string, 1);
+  rb_define_singleton_method(module_Ssdeep, "from_file", ssdeep_from_filename, 1);
+  rb_define_singleton_method(module_Ssdeep, "from_fileno", ssdeep_from_fileno, 1);
+  rb_define_singleton_method(module_Ssdeep, "compare", ssdeep_compare, 2);
 
-  rb_define_const(module_FuzzyHash, "FUZZY_MAX_RESULT", INT2NUM(FUZZY_MAX_RESULT));
-  rb_define_const(module_FuzzyHash, "SPAMSUM_LENGTH", INT2NUM(SPAMSUM_LENGTH));
+  rb_define_const(module_Ssdeep, "FUZZY_MAX_RESULT", INT2NUM(FUZZY_MAX_RESULT));
+  rb_define_const(module_Ssdeep, "SPAMSUM_LENGTH", INT2NUM(SPAMSUM_LENGTH));
 }
 

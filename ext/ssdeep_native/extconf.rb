@@ -1,7 +1,7 @@
 require 'mkmf'
 require 'rbconfig'
 
-extension_name = "fuzzyhash_native"
+extension_name = "ssdeep_native"
 
 dir_config(extension_name)
 
