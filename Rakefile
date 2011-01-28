@@ -21,7 +21,7 @@ rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
-Rake::ExtensionTask.new("fuzzyhash_native")
+Rake::ExtensionTask.new("ssdeep_native")
 
 CLEAN.include("lib/*.bundle")
 CLEAN.include("lib/*.so")
