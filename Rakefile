@@ -27,7 +27,7 @@ end
 require 'spec/rake/spectask'
 Spec::Rake::SpecTask.new(:spec) do |spec|
   spec.libs << 'lib' << 'spec'
-p  spec.spec_files = FileList['spec/ssdeep_spec.rb', 'spec/**/*_spec.rb'].uniq
+  spec.spec_files = FileList['spec/ssdeep_spec.rb', 'spec/**/*_spec.rb'].uniq
 end
 
 if RUBY_PLATFORM !~ /java/
