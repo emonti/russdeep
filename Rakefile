@@ -12,6 +12,7 @@ begin
     gem.homepage = "http://github.com/emonti/russdeep"
     gem.authors = ["Eric Monti"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.add_development_dependency "ffi", ">= 0"
 
     if RUBY_PLATFORM !~ /java/
       gem.extensions = FileList['ext/**/extconf.rb']
@@ -23,25 +24,22 @@ rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
+require 'spec/rake/spectask'
+Spec::Rake::SpecTask.new(:spec) do |spec|
+  spec.libs << 'lib' << 'spec'
+p  spec.spec_files = FileList['spec/ssdeep_spec.rb', 'spec/**/*_spec.rb'].uniq
+end
+
 if RUBY_PLATFORM !~ /java/
   Rake::ExtensionTask.new("ssdeep_native")
 
   CLEAN.include("lib/*.bundle")
   CLEAN.include("lib/*.so")
   CLEAN.include("tmp")
+
+  task :spec => :compile
 end
 
-require 'spec/rake/spectask'
-Spec::Rake::SpecTask.new(:spec) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.spec_files = FileList['spec/**/*_spec.rb']
-end
-
-Spec::Rake::SpecTask.new(:rcov) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.pattern = 'spec/**/*_spec.rb'
-  spec.rcov = true
-end
 
 #task :spec => :check_dependencies
 
