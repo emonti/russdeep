@@ -27,6 +27,31 @@ Then...
    cd russdeep
    rake compile
 
+== Example
+
+  require "ssdeep"
+
+  data1 =<<__EOM__
+  Ruby language bindings for the ssdeep 'libfuzzy' library api. This API lets you do 
+  fuzzy hash comparisons between files and arbitrary string buffers. Fuzzy 
+  hashes are also known as context triggered piecewise hashes (CTPH).
+
+  See the ssdeep homepage for more information:
+    http://ssdeep.sourceforge.net
+  __EOM__
+
+
+  hash1 = Ssdeep.from_string(data1)
+  hash2 = Ssdeep.from_string(data1 + "a little extra")
+  hash3 = Ssdeep.from_string(data1.gsub("ssdeep", "fuzzy"))
+  hash4 = Ssdeep.from_file("/etc/hosts")
+  hash5 = File.open("/etc/hosts"){|f| Ssdeep.from_fileno(f.fileno)}
+
+  Ssdeep.compare(hash1, hash1) # => 100
+  Ssdeep.compare(hash1, hash2) # => 97
+  Ssdeep.compare(hash1, hash3) # => 88
+  Ssdeep.compare(hash1, hash4) # => 0
+  Ssdeep.compare(hash4, hash5) # => 100
 
 == License
 
