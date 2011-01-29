@@ -13,7 +13,9 @@ begin
     gem.authors = ["Eric Monti"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
 
-    gem.extensions = FileList['ext/**/extconf.rb']
+    if RUBY_PLATFORM !~ /java/
+      gem.extensions = FileList['ext/**/extconf.rb']
+    end
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
@@ -21,11 +23,13 @@ rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
-Rake::ExtensionTask.new("ssdeep_native")
+if RUBY_PLATFORM !~ /java/
+  Rake::ExtensionTask.new("ssdeep_native")
 
-CLEAN.include("lib/*.bundle")
-CLEAN.include("lib/*.so")
-CLEAN.include("tmp")
+  CLEAN.include("lib/*.bundle")
+  CLEAN.include("lib/*.so")
+  CLEAN.include("tmp")
+end
 
 require 'spec/rake/spectask'
 Spec::Rake::SpecTask.new(:spec) do |spec|
@@ -39,7 +43,7 @@ Spec::Rake::SpecTask.new(:rcov) do |spec|
   spec.rcov = true
 end
 
-task :spec => :check_dependencies
+#task :spec => :check_dependencies
 
 task :default => :spec
 

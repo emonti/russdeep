@@ -29,7 +29,7 @@ module Ssdeep
 
   def self.from_string(buf)
     bufp = FFI::MemoryPointer.new(buf.size)
-    bufp.write_string_length(buf, buf.size)
+    bufp.write_string(buf)
 
     out = FFI::MemoryPointer.new(FUZZY_MAX_RESULT)
 
