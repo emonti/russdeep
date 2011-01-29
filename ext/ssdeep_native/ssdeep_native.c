@@ -10,7 +10,7 @@ VALUE ssdeep_from_string(VALUE klass, VALUE buf) {
   int ret;
   Check_Type(buf, T_STRING);
 
-  ret = fuzzy_hash_buf(RSTRING_PTR(buf), RSTRING_LEN(buf), hash);
+  ret = fuzzy_hash_buf((unsigned char *) RSTRING_PTR(buf), RSTRING_LEN(buf), hash);
   if (ret == 0)
     return rb_str_new2(hash);
   else
