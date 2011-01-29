@@ -1,17 +1,35 @@
 = russdeep
 
-Description goes here.
+Ruby language bindings for the ssdeep 'libfuzzy' library api. This API lets you do 
+fuzzy hash comparisons between files and arbitrary string buffers. Fuzzy 
+hashes are also known as context triggered piecewise hashes (CTPH).
 
-== Note on Patches/Pull Requests
- 
-* Fork the project.
-* Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
-  future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
-* Send me a pull request. Bonus points for topic branches.
+See the ssdeep homepage for more information:
+  http://ssdeep.sourceforge.net
 
-== Copyright
+== Requirements
+
+* ssdeep's libfuzzy - http://ssdeep.sourceforge.net
+  The latest version of ssdeep known to work with russdeep is 2.5.
+
+== Installation
+
+First ensure you have installed the ssdeep package and that libfuzzy is in your libpath.
+Then...
+
+=== Gem
+
+   (sudo)? gem install russdeep
+
+=== rake
+
+   git clone https://github.com/emonti/russdeep.git
+   cd russdeep
+   rake compile
+
+
+== License
+
+See LICENSE.txt
 
 Copyright (c) 2011 Eric Monti. See LICENSE for details.
