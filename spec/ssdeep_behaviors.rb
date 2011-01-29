@@ -64,5 +64,21 @@ shared_examples_for 'the Ssdeep interface' do
   end
 
 
+  it "should raise an exception when hashing invalid objects" do
+    lambda {@klass.from_fileno(nil)}.should raise_error
+    lambda {@klass.from_string(nil)}.should raise_error
+    lambda {@klass.from_file(nil)}.should raise_error
+  end
   
+  it "should raise an exception when hashing an invalid fileno" do
+    # ensure we're passing in an invalid fd, by opening and closing it ourself
+    fd = File.open(sample_file('sample1.txt')) {|f| f.fileno }
+
+    lambda {@klass.from_fileno(fd)}.should raise_error
+  end
+
+  it "should raise an exception when hashing an invalid file" do
+    lambda {@klass.from_fileno(sample_file('bogusfile'))}.should raise_error
+  end
+
 end
