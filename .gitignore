@@ -25,3 +25,4 @@ ref
 *.bundle
 *.so
 *.o
+*.gemspec
