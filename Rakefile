@@ -16,6 +16,7 @@ begin
 
     if RUBY_PLATFORM !~ /java/
       gem.extensions = FileList['ext/**/extconf.rb']
+      gem.extra_rdoc_files += FileList['ext/**/*.c']
     end
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
