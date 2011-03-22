@@ -25,10 +25,9 @@ rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
-require 'spec/rake/spectask'
-Spec::Rake::SpecTask.new(:spec) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.spec_files = FileList['spec/ssdeep_spec.rb', 'spec/**/*_spec.rb'].uniq
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:spec) do |spec|
+  spec.pattern = FileList['spec/ssdeep_spec.rb', 'spec/**/*_spec.rb'].uniq
 end
 
 if RUBY_PLATFORM !~ /java/
