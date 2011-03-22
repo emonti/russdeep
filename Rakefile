@@ -33,9 +33,12 @@ end
 if RUBY_PLATFORM !~ /java/
   Rake::ExtensionTask.new("ssdeep_native")
 
+  CLEAN.include("doc")
+  CLEAN.include("rdoc")
+  CLEAN.include("coverage")
+  CLEAN.include("tmp")
   CLEAN.include("lib/*.bundle")
   CLEAN.include("lib/*.so")
-  CLEAN.include("tmp")
 
   task :spec => :compile
 end
@@ -53,4 +56,9 @@ Rake::RDocTask.new do |rdoc|
   rdoc.title = "russdeep #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
+  rdoc.rdoc_files.include('ext/**/*.c')
 end
+
+require 'yard'
+YARD::Rake::YardocTask.new
+
