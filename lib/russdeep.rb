@@ -1,8 +1,7 @@
 require 'ssdeep'
 
-RuSsdeep = Ssdeep
 
-module RuSsdeep
+module Ssdeep
   # The FuzzyComparable module adds mixins for doing fuzzy hash comparisons.
   # The object extending must simply implement the 'ssdeep' method, which
   # should return a string containing a fuzzy CTPH hash.
@@ -45,3 +44,5 @@ module RuSsdeep
     end
   end
 end
+
+RuSsdeep = Ssdeep
