@@ -47,6 +47,12 @@ module Ssdeep
       return (fuzzy_score(other) >= [threshold, 100].min)
     end
   end
+
+  class << self
+    alias :hash_string :from_string
+    alias :hash_file :from_file
+    alias :hash_fileno :from_fileno
+  end
 end
 
 
