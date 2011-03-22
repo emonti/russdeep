@@ -1,0 +1,7 @@
+== 1.1.0 / 2011-03-21
+  * Added FuzzyComparable mixin
+  * Moved to rspec 2
+
+== 1.0.0 / 2011-02-20
+  * Initial version published.
+
