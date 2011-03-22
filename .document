@@ -1,5 +1,6 @@
 README.rdoc
 lib/**/*.rb
+ext/**/*.c
 bin/*
 features/**/*.feature
 LICENSE
