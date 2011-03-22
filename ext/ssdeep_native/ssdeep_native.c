@@ -5,6 +5,17 @@
 static VALUE module_Ssdeep = Qnil;
 static VALUE error_HashError = Qnil;
 
+/* call-seq: from_string(buf)
+ *
+ * Create a fuzzy hash from a ruby string
+ *
+ * @param  String buf   The string to hash
+ *
+ * @return String       The fuzzy hash of the string
+ *
+ * @raise HashError  
+ *   An exception is raised if the libfuzzy library encounters an error.
+ */
 VALUE ssdeep_from_string(VALUE klass, VALUE buf) {
   char hash[FUZZY_MAX_RESULT];
   int ret;
@@ -17,6 +28,17 @@ VALUE ssdeep_from_string(VALUE klass, VALUE buf) {
     rb_raise(error_HashError, "An error occurred hashing a string: ret=%i", ret);
 }
 
+/* call-seq: from_file(filename)
+ *
+ * Create a fuzzy hash from a file
+ *
+ * @param  String fielname  The file to read and hash
+ *
+ * @return String           The fuzzy hash of the file input
+ *
+ * @raise HashError  
+ *   An exception is raised if the libfuzzy library encounters an error.
+ */
 VALUE ssdeep_from_filename(VALUE klass, VALUE filename) {
   char hash[FUZZY_MAX_RESULT];
   int ret;
@@ -29,6 +51,17 @@ VALUE ssdeep_from_filename(VALUE klass, VALUE filename) {
     rb_raise(error_HashError, "An error occurred the file: %s -- ret=%i", RSTRING_PTR(filename), ret);
 }
 
+/* call-seq: from_fileno(fileno)
+ *
+ * Create a fuzzy hash from a file descriptor fileno
+ *
+ * @param  Integer fileno  The file descriptor to read and hash
+ * 
+ * @return String          The fuzzy hash of the file descriptor input
+ *
+ * @raise HashError  
+ *   An exception is raised if the libfuzzy library encounters an error.
+ */
 VALUE ssdeep_from_fileno(VALUE klass, VALUE fileno) {
   char hash[FUZZY_MAX_RESULT];
   int ret, fd;
@@ -50,6 +83,17 @@ VALUE ssdeep_from_fileno(VALUE klass, VALUE fileno) {
     rb_raise(error_HashError, "An error occurred the fileno: %i -- ret=%i", fd, ret);
 }
 
+/* call-seq: compare(sig1, sig2)
+ *
+ * Compare two hashes
+ *
+ * @param String sig1  A fuzzy hash which will be compared to sig2
+ *
+ * @param String sig2  A fuzzy hash which will be compared to sig1
+ *
+ * @return Integer
+ *   A value between 0 and 100 indicating the percentage of similarity.
+ */
 VALUE ssdeep_compare(VALUE klass, VALUE sig1, VALUE sig2) {
   int ret;
 

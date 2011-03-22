@@ -27,6 +27,14 @@ module Ssdeep
   attach_function :fdopen, [:int, :string], :pointer
 
 
+  # Create a fuzzy hash from a ruby string
+  #
+  # @param  String buf   The string to hash
+  #
+  # @return String       The fuzzy hash of the string
+  #
+  # @raise HashError  
+  #   An exception is raised if the libfuzzy library encounters an error.
   def self.from_string(buf)
     bufp = FFI::MemoryPointer.new(buf.size)
     bufp.write_string(buf)
@@ -40,6 +48,14 @@ module Ssdeep
     end
   end
 
+  # Create a fuzzy hash from a file descriptor fileno
+  #
+  # @param  Integer fileno  The file descriptor to read and hash
+  # 
+  # @return String          The fuzzy hash of the file descriptor input
+  #
+  # @raise HashError  
+  #   An exception is raised if the libfuzzy library encounters an error.
   def self.from_fileno(fileno)
     if (not fileno.kind_of?(Integer)) or (file=fdopen(fileno, "r")).null?
       raise(HashError, "Unable to open file descriptor: #{fileno}")
@@ -54,6 +70,14 @@ module Ssdeep
     end
   end
 
+  # Create a fuzzy hash from a file
+  #
+  # @param  String fielname  The file to read and hash
+  #
+  # @return String           The fuzzy hash of the file input
+  #
+  # @raise HashError  
+  #   An exception is raised if the libfuzzy library encounters an error.
   def self.from_file(filename)
     File.stat(filename)
     out = FFI::MemoryPointer.new(FUZZY_MAX_RESULT)
@@ -65,6 +89,14 @@ module Ssdeep
     end
   end
 
+  # Compare two hashes
+  #
+  # @param String sig1  A fuzzy hash which will be compared to sig2
+  #
+  # @param String sig2  A fuzzy hash which will be compared to sig1
+  #
+  # @return Integer
+  #   A value between 0 and 100 indicating the percentage of similarity.
   def self.compare(sig1, sig2)
     psig1 = FFI::MemoryPointer.from_string(sig1)
     psig2 = FFI::MemoryPointer.from_string(sig2)
