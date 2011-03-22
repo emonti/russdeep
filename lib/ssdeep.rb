@@ -7,8 +7,8 @@ end
 
 module Ssdeep
   # The FuzzyComparable module adds mixins for doing fuzzy hash comparisons.
-  # The object extending must simply implement the 'ssdeep' method, which
-  # should return a string containing a fuzzy CTPH hash.
+  # To mix in the module your object must simply implement the 'ssdeep'
+  # method, which should return a string containing a fuzzy CTPH hash.
   module FuzzyComparable
     # Returns a CTPH comparison score between this object and another's
     # fuzzy hash.
