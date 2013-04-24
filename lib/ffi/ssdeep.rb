@@ -37,7 +37,7 @@ module Ssdeep
   #   An exception is raised if the libfuzzy library encounters an error.
   def self.from_string(buf)
     bufp = FFI::MemoryPointer.new(buf.size)
-    bufp.write_string(buf)
+    bufp.write_string(buf, buf.size)
 
     out = FFI::MemoryPointer.new(FUZZY_MAX_RESULT)
 
